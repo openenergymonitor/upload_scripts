@@ -37,12 +37,18 @@ if [ "$connected" = true ]
 then
     cd /home/pi/emonTxFirmware
     git pull
+    cd /home/pi/emonTH
+    git pull
+    cd /home/pi/emonpi
+    git pull
+    cd /home/pi/RFM2Pi
+    git pull
     sleep 1
     cd /home/pi
     printf "\nSuccessfully updated to latest code\n"
     printf "Starting Python upload and test script...\n\n\n"
 fi
 
-python /home/pi/emonTxFirmware/Automated_Upload_Test_scripts/upload_and_test_scripts/emonTxV34_ISP.py
+python /home/pi/emonTxFirmware/upload_scripts/automated/upload_and_test_scripts/all.py
 
 exit 0
