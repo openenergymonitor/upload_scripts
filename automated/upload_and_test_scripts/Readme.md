@@ -14,5 +14,5 @@ sleep 1
 
 cd /home/pi
 
-python /home/pi/scriptname.py)
+python /home/pi/scriptname.py
 
