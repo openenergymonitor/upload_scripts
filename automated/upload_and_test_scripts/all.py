@@ -41,8 +41,8 @@ while(1):
 		else:
 			print 'error..Rx Module is not responding'
 		ser.close()
-		print 'Attempting RFM12B 433Mhz emonTx firmware upload via ISP....'
-		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/V1_6_emonTxV3_RFM12B_DiscreteSampling_433_bootloader.cpp.hex:i  -Ulock:w:0x0F:m'
+		print 'Attempting RFM69CW  433Mhz emonTx firmware upload via ISP....'
+		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/V1_6_emonTxV3_RFM69CW_DiscreteSampling_433_bootloader.cpp.hex:i  -Ulock:w:0x0F:m'
 		subprocess.call(cmd, shell=True)
                 time.sleep(1)
 		ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
@@ -76,7 +76,7 @@ while(1):
 			print 'error..Rx Module is not responding'
 
 		ser.close()
-		print 'Attempting RFM69CW 433Mhz emonTx firmware upload via ISP....'
+		print 'Attempting RFM69CW 433Mhz emonTH firmware upload via ISP....'
 		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTH/emonTH_DHT22_DS18B20_RFM69CW/emonTH_V1.5_RFM69CW_Bootloader.hex:i  -Ulock:w:0x0F:m'
 		subprocess.call(cmd, shell=True)
                 time.sleep(1)
@@ -118,7 +118,7 @@ while(1):
 			print 'error..Rx Module is not responding'
 
 		ser.close()
-		print 'Attempting RFM69CW 433Mhz emonTx firmware upload via ISP....'
+		print 'Attempting RFM69CW 433Mhz emonPi firmware upload via ISP....'
 		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonpi/Atmega328/emonPi_RFM69CW_RF12Demo_DiscreteSampling/emonPi_V1_Bootloader.hex:i'
 
 		subprocess.call(cmd, shell=True)
