@@ -49,6 +49,7 @@ then
     printf "Starting Python upload and test script...\n\n\n"
 fi
 
-python /home/pi/emonTxFirmware/upload_scripts/automated/upload_and_test_scripts/all.py
+python /home/pi/upload_scripts/automated/upload_and_test_scripts/all.py 
+
 
 exit 0
