@@ -2,7 +2,7 @@
 # Automated upload and test 
 # Upload code to emonTx via ISP and check for RF data received 
 
-# By Glyn Hudson 11/02/2015
+# By Glyn Hudson 20/04/2015
 # Part of the openenergymonitor.org project
 
 
@@ -10,7 +10,7 @@ import serial, sys, string, commands, time, subprocess
 from subprocess import Popen, PIPE, STDOUT
 
 print' '
-print 'OpenEnergyMonitor all unit Upload & test 15/04/15'
+print 'OpenEnergyMonitor all unit Upload & test 20/04/15'
 print ' ' 
 print 'Select Upload:'
 
