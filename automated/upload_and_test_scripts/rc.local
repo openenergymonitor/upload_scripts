@@ -43,6 +43,8 @@ then
     git pull
     cd /home/pi/RFM2Pi
     git pull
+    cd /home/pi/upload_scripts
+    git pull
     sleep 1
     cd /home/pi
     printf "\nSuccessfully updated to latest code\n"
