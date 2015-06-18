@@ -35,7 +35,7 @@ while(1):
 	if nb=='x': 
 		print 'emonTx V3.4 RFM69CW 433Mhz'
 		print 'Attempting RFM69CW  433Mhz emonTx firmware upload via ISP....'
-		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/V1_6_emonTxV3_RFM69CW_DiscreteSampling_433_bootloader.cpp.hex:i  -Ulock:w:0x0F:m'
+		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/emonTxV3_RFM69CW_latest_433_bootloader.hex:i  -Ulock:w:0x0F:m'
 		subprocess.call(cmd, shell=True)
                 time.sleep(1)
 		ser = serial.Serial('/dev/ttyAMA0', 38400, timeout=1)
