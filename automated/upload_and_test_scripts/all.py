@@ -54,17 +54,17 @@ while(1):
 	if nb=='h': 
 		print 'emonTH RFM69CW 433Mhz'
 		print 'RFM69CW 433Mhz emonTH firmware upload via ISP....'
-		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTH/emonTH_DHT22_DS18B20_RFM69CW/emonTH_latest_Bootloader.hex:i  -Ulock:w:0x0F:m'
+		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTH/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/emonTH_latest_Bootloader.hex:i  -Ulock:w:0x0F:m'
 		subprocess.call(cmd, shell=True)
                 time.sleep(1)
 		ser = serial.Serial('/dev/ttyAMA0', 38400, timeout=1)
 		linestr = ser.readline()
 		print linestr
 		if (len(linestr)>0):
-			if (int(linestr[3] + linestr[4])==19): 
-				print 'PASS!...RF RECEIVE SUCCESS from emonTH RFM69CW on node 19'
+			if ((int(linestr[3] + linestr[4])==19) || (int(linestr[3] + linestr[4])==23)): 
+				print 'PASS!...RF RECEIVE SUCCESS from emonTH RFM69CW on node 19 or 23'
 			else:
-				print 'FAIL...RF received but not from the emonTH on node 19 (Check DIP switch setting?)'
+				print 'FAIL...RF received but not from the emonTH on node 19 or 23 (Check DIP switch setting?)'
 		else: 
 			print 'FAIL...no RF received'
 		ser.close()
