@@ -61,7 +61,7 @@ while(1):
 		linestr = ser.readline()
 		print linestr
 		if (len(linestr)>0):
-			if ((int(linestr[3] + linestr[4])==19) || (int(linestr[3] + linestr[4])==23)): 
+			if ((int(linestr[3] + linestr[4])==19) | (int(linestr[3] + linestr[4])==23)): 
 				print 'PASS!...RF RECEIVE SUCCESS from emonTH RFM69CW on node 19 or 23'
 			else:
 				print 'FAIL...RF received but not from the emonTH on node 19 or 23 (Check DIP switch setting?)'
