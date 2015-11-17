@@ -44,9 +44,9 @@ while(1):
 		#print len(linestr)
 		if (len(linestr)>0):
 			if (int(linestr[3] + linestr[4])==10) | (int(linestr[3] + linestr[4])==8): 
-				print 'PASS!...RF RECEIVE SUCCESS from emonTx on node 10'
+				print 'PASS!...RF RECEIVE SUCCESS from emonTx'
 			else:
-				print 'FAIL...RF received but not from the emonTx on node 10'
+				print 'FAIL...RF received but not from the emonTx'
 		else: 
 			print 'FAIL...no RF received'
 		ser.close()
