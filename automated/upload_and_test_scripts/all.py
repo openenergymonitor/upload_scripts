@@ -43,7 +43,7 @@ while(1):
 		print linestr
 		#print len(linestr)
 		if (len(linestr)>0):
-			if (int(linestr[3] + linestr[4])==10) | if (int(linestr[3] + linestr[4])==8): 
+			if (int(linestr[3] + linestr[4])==10) | (int(linestr[3] + linestr[4])==8): 
 				print 'PASS!...RF RECEIVE SUCCESS from emonTx on node 10'
 			else:
 				print 'FAIL...RF received but not from the emonTx on node 10'
