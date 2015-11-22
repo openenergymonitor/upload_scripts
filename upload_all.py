@@ -16,6 +16,10 @@ RX_GROUP = "210g"
 RX_FREQUENCY = "4b"
 
 FIRMWARE_BASE_PATH = "/home/oem/firmware/"
+EMONTX_PATH = "emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/compiled/"
+EMONTH_PATH = "emonTH/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/"
+EMONPI_PATH = "
+
 DEVICE = "ATMEGA328P"
 UPLOAD_PORT = "/dev/ttyUSB0"
 UPLOAD_BAUD = 115200
@@ -47,35 +51,53 @@ if RX:
   ser.close()
 
 while(1):
+  print 'MENU: \n'
+	print 'Make selection then hit Enter >'
+	print '(1) for emonTx'
+	print '(2) for emonTH'
+	print '(3) for emonPi'
+	print '(4) for RFM69Pi'
 	print ' '
-	print 'Enter >'
-	print '(x) for emonTx'
-	print '(h) for emonTH'
-	print '(i) for emonPi'
-	print '(r) for RFM69Pi'
+	print '5) to view serial window
 	print '(e) to EXIT'
 	nb = raw_input('> ')
-        print(nb)
 
-	if nb=='x':
-		print 'emonTx RFM69CW 433Mhz'
-		cmd = SERIAL_UPLOAD_DEFAULT + FIRMWARE_BASE_PATH + "emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/compiled/emonTxV3_RFM69CW_latest_433.hex"+":i"
-		subprocess.call(cmd, shell=True)
-                time.sleep(1)
-		ser = serial.Serial(UPLOAD_PORT, NEW_SERIAL_BAUD, timeout=1)
-		linestr = ser.readline()
-		print linestr
+	if nb=='1': #emonTx --------------------------------------------------------------------------------------------------------
+	  print '(1) for emonTx RFM69CW 433Mhz'
+	  print '(2) for emonTx RFM69CW 868Mhz'
+	  nb2 = raw_input('> ')
+	  
+	  if nb2=='1':
+	    while True:
+		    print 'emonTx RFM69CW 433Mhz'
+		    cmd = SERIAL_UPLOAD_DEFAULT + FIRMWARE_BASE_PATH + EMONTX_PATH + "emonTxV3_RFM69CW_latest_433.hex"
+		    subprocess.call(cmd, shell=True)
+          time.sleep(1)
+		    ser = serial.Serial(UPLOAD_PORT, NEW_SERIAL_BAUD, timeout=2)
+		    print = ser.readline()
+		    choice = raw_input("Hit Enter to upload again or any other key then Enter to return to menu")
+		    if choice == '':
+		      print "upload again...\n"
+		    else:
+		      break # return to menu
+		    
+
+	
+	if nb=='2': #emonTH--------------------------------------------------------------------------------------------------------
+	print 'emonTH RFM69CW 433Mhz'
+	cmd = SERIAL_UPLOAD_DEFAULT + FIRMWARE_BASE_PATH + EMONTH_PATH "emonTH_latest.hex"
+	subprocess.call(cmd, shell=True)
+    time.sleep(1)
+	ser = serial.Serial(UPLOAD_PORT, OLD_SERIAL_BAUD, timeout=2)
+	for num in range(1,5)
+	  print = ser.readline()
+		
 
 	if nb=='e':
 		print 'Exit'
 		sys.exit
+		
+	else:
+	  "Invalid input"
 
-
-
-
-
-
-
-	#if ((nb!=8) and (nb!=4)):
-	#	print 'Invalid selection, please restart script and select b or w'
 
