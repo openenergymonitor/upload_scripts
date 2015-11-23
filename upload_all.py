@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Automated upload and test
 # Upload code to ATmega328 via ISP / Serial and check for RF data received
 
@@ -9,95 +11,58 @@ import serial, sys, string, commands, time, subprocess
 from subprocess import Popen, PIPE, STDOUT
 
 ###################################################### DEFENITIONS ###################################################################
-RX = False # Is Rx device present?
-RX_PORT = "/dev/ttyUSB1"
-RX_BAUD = 38400
-RX_GROUP = "210g"
-RX_FREQUENCY = "4b"
+rx_device = False # Is Rx device present?
+rx_port = '/dev/ttyUSB1'
+rx_baud = 38400
+rx_group = '210g'
+rx_frequency = '4b'
 
-FIRMWARE_BASE_PATH = "/home/oem/firmware/"
-EMONTX_PATH = "emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/compiled/"
-EMONTH_PATH = "emonTH/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/"
-EMONPI_PATH = "
+firmware_base_path = '/home/oem/firmware/'
+emontx_path = 'emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/compiled/'
+emonth_path = 'emonTH/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/'
+emonpi_path = 'emonpi//Atmega328/emonPi_RFM69CW_RF12Demo_DiscreteSampling/compiled/'
 
-DEVICE = "ATMEGA328P"
-UPLOAD_PORT = "/dev/ttyUSB0"
-UPLOAD_BAUD = 115200
-NEW_SERIAL_BAUD = 38400
-OLD_SERIAL_BAUD = 9600
+device = 'ATMEGA328P'
+upload_port = '/dev/ttyUSB0'
+upload_baud = '115200'
+new_serial_baud = '38400'
+new_serial_baud = '9600'
 
-ISP_UPLOAD_DEFAULT = "-V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:"
-SERIAL_UPLOAD_DEFAULT = "-u -c arduino -p" + DEVICE + "-P" + UPLOAD_PORT  + "-b" + str(UPLOAD_BAUD) + "-U flash:w:"
-
-
+isp_upload_default = '-V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:'
+serial_upload_default = '-u -c arduino -p' + device + '-P' + upload_port  + '-b' + upload_baud + '-U flash:w:'
 
 #####################################################################################################################################
 
-
-
-
-print' '
 print 'OpenEnergyMonitor Upload & Test'
 print ' '
-print 'Select Upload:'
+print "Select Upload"
 
-
-if RX:
-  print 'setting Rx module to receive on 433Mhz and 210 network group....'
-  ser = serial.Serial(RX_PORT, RX_BAUD, timeout=1)
-  ser.write(RX_GROUP)
-  time.sleep(1)
-  ser.write(RX_FREQUENCY)
-  ser.close()
-
-while(1):
-  print 'MENU: \n'
-	print 'Make selection then hit Enter >'
-	print '(1) for emonTx'
-	print '(2) for emonTH'
-	print '(3) for emonPi'
-	print '(4) for RFM69Pi'
-	print ' '
-	print '5) to view serial window
-	print '(e) to EXIT'
-	nb = raw_input('> ')
-
-	if nb=='1': #emonTx --------------------------------------------------------------------------------------------------------
-	  print '(1) for emonTx RFM69CW 433Mhz'
-	  print '(2) for emonTx RFM69CW 868Mhz'
-	  nb2 = raw_input('> ')
-	  
-	  if nb2=='1':
-	    while True:
-		    print 'emonTx RFM69CW 433Mhz'
-		    cmd = SERIAL_UPLOAD_DEFAULT + FIRMWARE_BASE_PATH + EMONTX_PATH + "emonTxV3_RFM69CW_latest_433.hex"
-		    subprocess.call(cmd, shell=True)
-          time.sleep(1)
-		    ser = serial.Serial(UPLOAD_PORT, NEW_SERIAL_BAUD, timeout=2)
-		    print = ser.readline()
-		    choice = raw_input("Hit Enter to upload again or any other key then Enter to return to menu")
-		    if choice == '':
-		      print "upload again...\n"
-		    else:
-		      break # return to menu
-		    
-
-	
-	if nb=='2': #emonTH--------------------------------------------------------------------------------------------------------
-	print 'emonTH RFM69CW 433Mhz'
-	cmd = SERIAL_UPLOAD_DEFAULT + FIRMWARE_BASE_PATH + EMONTH_PATH "emonTH_latest.hex"
-	subprocess.call(cmd, shell=True)
-    time.sleep(1)
-	ser = serial.Serial(UPLOAD_PORT, OLD_SERIAL_BAUD, timeout=2)
-	for num in range(1,5)
-	  print = ser.readline()
-		
-
-	if nb=='e':
-		print 'Exit'
-		sys.exit
-		
-	else:
-	  "Invalid input"
-
-
+while(True):
+    print "MENU: "
+    print 'Make selection then hit Enter >'
+    print "(1) for emonTx (Firmware V2.3)"
+    print "(2) for emonTH (Firmware V2.6)"
+    print "(3) for emonPi (Firmware V2.0)"
+    print "(4) for RFM69Pi (Firmware V1.3)"
+    print ' '
+    print "(5) to view serial window"
+    print "(e) to EXIT"
+    nb = raw_input('> ')
+    if nb=='1':
+	    print "(1) for emonTx RFM69CW 433Mhz"
+	    print "(2) for emonTx RFM69CW 868Mhz"
+	    nb2 = raw_input('> ')
+	    if nb2=='1':
+		    while True:
+			    print "emonTx RFM69CW 433Mhz"
+			    cmd = serial_upload_default + firmware_base_path + emontx_path + 'emonTxV3_RFM69CW_latest_433.hex'
+			    subprocess.call(cmd, shell=True)
+			    time.sleep(1)
+          	    ser = serial.Serial(upload_port, new_serial_baud, timeout=2)
+          	    serial = ser.readline()
+          	    print serial
+          	    choice = raw_input('Hit Enter to upload again or any other key then Enter to return to menu>')
+          	    if choice == '':
+          		    print 'upload again...'
+          		if choice != ''
+          		    break
