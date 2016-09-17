@@ -1,6 +1,6 @@
-# Script for RaspberryPi with RFM12Pi 
-# Automated upload and test 
-# Upload code to emonTx via ISP and check for RF data received 
+# Script for RaspberryPi with RFM12Pi
+# Automated upload and test
+# Upload code to emonTx via ISP and check for RF data received
 
 # By Glyn Hudson 20/04/2015
 # Part of the openenergymonitor.org project
@@ -11,7 +11,7 @@ from subprocess import Popen, PIPE, STDOUT
 
 print' '
 print 'OpenEnergyMonitor all unit Upload & test 20/04/15'
-print ' ' 
+print ' '
 print 'Select Upload:'
 
 print 'setting Rx module to receive on 433Mhz and 210 network group....'
@@ -22,8 +22,8 @@ ser.write("4b")
 ser.close()
 
 while(1):
-	print ' ' 
-	print 'Enter >' 
+	print ' '
+	print 'Enter >'
 	print '(x) for emonTx'
 	print '(h) for emonTH'
 	print '(i) for emonPi'
@@ -32,7 +32,7 @@ while(1):
 	nb = raw_input('> ')
         print(nb)
 
-	if nb=='x': 
+	if nb=='x':
 		print 'emonTx V3.4 RFM69CW 433Mhz'
 		print 'Attempting RFM69CW  433Mhz emonTx firmware upload via ISP....'
 		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTxFirmware/emonTxV3/RFM/emonTxV3.4/emonTxV3_4_DiscreteSampling/compiled/emonTxV3_RFM69CW_latest_433_bootloader.hex:i  -Ulock:w:0x0F:m'
@@ -43,33 +43,33 @@ while(1):
 		print linestr
 		#print len(linestr)
 		if (len(linestr)>0):
-			if (int(linestr[3] + linestr[4])==10) | (int(linestr[3] + linestr[4])==8): 
+			if (int(linestr[3] + linestr[4])==10) | (int(linestr[3] + linestr[4])==8):
 				print 'PASS!...RF RECEIVE SUCCESS from emonTx'
 			else:
 				print 'FAIL...RF received but not from the emonTx'
-		else: 
+		else:
 			print 'FAIL...no RF received'
 		ser.close()
 
-	if nb=='h': 
+	if nb=='h':
 		print 'emonTH RFM69CW 433Mhz'
 		print 'RFM69CW 433Mhz emonTH firmware upload via ISP....'
-		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTH/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/emonTH_latest_Bootloader.hex:i  -Ulock:w:0x0F:m'
+		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonTH/emonTH_V1.5/emonTH_DHT22_DS18B20_RFM69CW_Pulse/compiled/emonTH_latest_Bootloader.hex:i  -Ulock:w:0x0F:m'
 		subprocess.call(cmd, shell=True)
                 time.sleep(1)
 		ser = serial.Serial('/dev/ttyAMA0', 38400, timeout=1)
 		linestr = ser.readline()
 		print linestr
 		if (len(linestr)>0):
-			if ((int(linestr[3] + linestr[4])==19) | (int(linestr[3] + linestr[4])==23)): 
+			if ((int(linestr[3] + linestr[4])==19) | (int(linestr[3] + linestr[4])==23)):
 				print 'PASS!...RF RECEIVE SUCCESS from emonTH RFM69CW on node 19 or 23'
 			else:
 				print 'FAIL...RF received but not from the emonTH on node 19 or 23 (Check DIP switch setting?)'
-		else: 
+		else:
 			print 'FAIL...no RF received'
 		ser.close()
 
-	if nb=='r': 
+	if nb=='r':
 		print 'RFM69Pi 433Mhz'
 		print 'RFM69Pi firmware upload via ISP....'
 		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xE2:m -U flash:w:/home/pi/RFM2Pi/firmware/RFM69CW_RF_Demo_ATmega328/Optiboot328_8mhz_RFM69CW_RF12_Demo_ATmega328.cpp.hex:i'
@@ -77,7 +77,7 @@ while(1):
                 time.sleep(1)
 		print 'Check JeeLink transmitter connected > Flashing RED LED on the RFM69Pi = SUCCESS?'
 
-	if nb=='i': 
+	if nb=='i':
 		print 'emonPi RFM69CW 433Mhz'
 		print 'RFM69CW 433Mhz emonPi firmware upload via ISP....'
 		cmd = 'sudo avrdude -V -u -p atmega328p -c avrispmkII -P usb -e -Ulock:w:0x3F:m -Uefuse:w:0x05:m -Uhfuse:w:0xDE:m -Ulfuse:w:0xFF:m -U flash:w:/home/pi/emonpi/Atmega328/emonPi_RFM69CW_RF12Demo_DiscreteSampling/compiled/emonPi_latest_bootloader.hex:i'
@@ -88,11 +88,11 @@ while(1):
 		linestr = ser.readline()
 		print linestr
 		if (len(linestr)>0):
-			if (int(linestr[2] + linestr[3])==5): 
+			if (int(linestr[2] + linestr[3])==5):
 				print 'PASS!...RF RECEIVE SUCCESS from emonPi'
 			else:
 				print 'FAIL...RF received but not from the emonPi on node 5'
-		else: 
+		else:
 			print 'FAIL...no RF received'
 		ser.close()
 
